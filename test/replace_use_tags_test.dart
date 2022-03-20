@@ -4,8 +4,6 @@ import 'package:xml/xml.dart';
 
 import 'helpers/helpers.dart';
 
-enum Foo { bar }
-
 void main() {
   group('svgToVectorDrawable', () {
     test('parses the use attribute', () {

@@ -127,5 +127,4 @@ app.*.map.json
 !.idea/dictionaries/
 !.idea/runConfigurations/
 
-.vscode/
-*.mapper.g.dart
+*.g.dart
