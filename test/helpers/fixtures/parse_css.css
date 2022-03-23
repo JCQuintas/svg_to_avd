@@ -12,10 +12,16 @@
     color: blue;
   }
 }
-#main #content {
+#main, button {
   margin: 0 7.6%;
   width: auto;
 }
+
+button {
+  width: 10px;
+  border: 1px solid pink;
+}
+
 #nav-below {
   border-bottom: 1px solid #ddd;
   margin-bottom: 1.625em;

@@ -5,8 +5,6 @@ import 'package:test/test.dart';
 
 import 'helpers/helpers.dart';
 
-JsonEncoder encoder = const JsonEncoder.withIndent('  ');
-
 void main() {
   group('parseCss', () {
     test('converts the css string to a map', () {
@@ -18,13 +16,3 @@ void main() {
     });
   });
 }
-
-// { 
-//   {
-//      @media (max-width: 800px): { {}, {} }, 
-//      #main #comments: { {}, {} }
-//    }, 
-//    {
-//      margin: [0px], width: [auto], background: [red]
-//    }
-// }

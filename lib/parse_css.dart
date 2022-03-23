@@ -25,13 +25,19 @@ class CssMap {
         'children': children,
         'attributes': attributes,
       };
+
+  CssMap clone() {
+    return CssMap(
+      children: Map.from(children),
+      attributes: Map.from(attributes),
+    );
+  }
 }
 
 /// Receives a string containing [cssString] and returns a [Map] of the parsed
 /// nodes.
 CssMap parseCss(
   String cssString, {
-  bool splitSelectors = false,
   List<int>? startIndex,
 }) {
   final internalIndex = startIndex ?? [0];
@@ -52,12 +58,9 @@ CssMap parseCss(
       final name = selectorValue;
       final newNode = parseCss(
         workCssString,
-        splitSelectors: splitSelectors,
         startIndex: internalIndex,
       );
-      final selectors = splitSelectors
-          ? name.split(',').map((e) => e.trim()).toList()
-          : [name];
+      final selectors = name.split(',').map((e) => e.trim()).toList();
 
       for (final selector in selectors) {
         if (node.children.containsKey(selector)) {
@@ -68,7 +71,7 @@ CssMap parseCss(
             }
           }
         } else {
-          node.children[selector] = newNode;
+          node.children[selector] = newNode.clone();
         }
       }
     } else if (endValue != null) {
