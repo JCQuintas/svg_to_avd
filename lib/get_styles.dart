@@ -7,7 +7,10 @@ List<Map<String, String>> getStyles(XmlElement element, CssMap cssMap) {
 
   final parentStyles = <String, String>{};
 
-  for (final current in element.ancestorElements.toList().reversed) {
+  for (final current in element.ancestorElements
+      .where((element) => element.name.local == 'g')
+      .toList()
+      .reversed) {
     for (final entry in parseStyles(current, cssMap).entries) {
       if (entry.key != 'id') {
         parentStyles[entry.key] = entry.value;
