@@ -14,18 +14,40 @@ class AttributeName {
   static String strokeMiterLimit = 'stroke-miterlimit';
   static String strokeLineCap = 'stroke-linecap';
   static String d = 'd';
+  static String transform = 'transform';
+
+  // general
+  static String androidFillColor = android('fillColor');
+  static String androidFillAlpha = android('fillAlpha');
+  static String androidFillType = android('fillType');
+  static String androidStrokeColor = android('strokeColor');
+  static String androidStrokeAlpha = android('strokeAlpha');
+  static String androidStrokeWidth = android('strokeWidth');
+  static String androidStrokeLineJoin = android('strokeLineJoin');
+  static String androidStrokeMiterLimit = android('strokeMiterLimit');
+  static String androidStrokeLineCap = android('strokeLineCap');
+  static String androidPathData = android('pathData');
+
+  // transforms
+  static String androidTranslateX = android('translateX');
+  static String androidTranslateY = android('translateY');
+  static String androidScaleX = android('scaleX');
+  static String androidScaleY = android('scaleY');
+  static String androidRotate = android('rotate');
+  static String androidRotatePivotX = android('rotatePivotX');
+  static String androidRotatePivotY = android('rotatePivotY');
 
   static final _convertMap = {
-    fill: android('fillColor'),
-    fillOpacity: android('fillAlpha'),
-    fillRule: android('fillType'),
-    stroke: android('strokeColor'),
-    strokeOpacity: android('strokeAlpha'),
-    strokeWidth: android('strokeWidth'),
-    strokeLineJoin: android('strokeLineJoin'),
-    strokeMiterLimit: android('strokeMiterLimit'),
-    strokeLineCap: android('strokeLineCap'),
-    d: android('pathData'),
+    fill: androidFillColor,
+    fillOpacity: androidFillAlpha,
+    fillRule: androidFillType,
+    stroke: androidStrokeColor,
+    strokeOpacity: androidStrokeAlpha,
+    strokeWidth: androidStrokeWidth,
+    strokeLineJoin: androidStrokeLineJoin,
+    strokeMiterLimit: androidStrokeMiterLimit,
+    strokeLineCap: androidStrokeLineCap,
+    d: androidPathData,
   };
 
   static String toAndroid(String attributeName) {
