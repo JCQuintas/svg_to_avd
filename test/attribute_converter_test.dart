@@ -75,6 +75,12 @@ final List<TestCase> testCases = [
         'android:pathData="M1,1 h4 M1,3 h4 M1,5 h4" '
         '/>',
   ),
+  TestCase(
+    title: 'wraps element in a group when it contains transforms',
+    input: '<svg transform="translate(25)"/>',
+    output:
+        '<group android:translateX="25"><svg android:fillColor="#000000" /></group>',
+  ),
 ];
 
 void main() {

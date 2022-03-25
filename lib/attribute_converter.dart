@@ -1,4 +1,5 @@
 import 'package:svg_to_vector_drawable/attribute_name.dart';
+import 'package:svg_to_vector_drawable/transform_converter.dart';
 import 'package:xml/xml.dart';
 
 String multiply(dynamic v1, dynamic v2) =>
@@ -96,6 +97,11 @@ XmlElement attributeConverter(XmlElement element) {
     element.children.map((child) => child.copy()),
     element.isSelfClosing,
   );
+
+  final transform = element.getAttribute(AttributeName.transform);
+  if (transform != null) {
+    return XmlElement(XmlName('group'), transformConverter(transform), [clone]);
+  }
 
   return clone;
 }

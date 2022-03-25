@@ -19,6 +19,14 @@ void addIfValid(
   }
 }
 
+String? elementAt(List<String>? list, int index) {
+  if (list != null && list.length >= index + 1) {
+    return list.elementAt(index);
+  }
+
+  return null;
+}
+
 List<XmlAttribute> transformConverter(String? transform) {
   if (transform == null) return [];
 
@@ -34,8 +42,8 @@ List<XmlAttribute> transformConverter(String? transform) {
     final transformName = match.first.group(1)?.trim();
 
     if (transformName == 'translate') {
-      final x = split?.elementAt(0);
-      final y = split?.elementAt(1);
+      final x = elementAt(split, 0);
+      final y = elementAt(split, 1);
 
       addIfValid(
         transformAttributes,
@@ -50,8 +58,8 @@ List<XmlAttribute> transformConverter(String? transform) {
         AttributeName.androidTranslateY,
       );
     } else if (transformName == 'scale') {
-      final x = split?.elementAt(0);
-      final y = split?.elementAt(1);
+      final x = elementAt(split, 0);
+      final y = elementAt(split, 1);
 
       addIfValid(
         transformAttributes,
@@ -66,9 +74,9 @@ List<XmlAttribute> transformConverter(String? transform) {
         AttributeName.androidScaleY,
       );
     } else if (transformName == 'rotate') {
-      final r = split?.elementAt(0);
-      final x = split?.elementAt(1);
-      final y = split?.elementAt(2);
+      final r = elementAt(split, 0);
+      final x = elementAt(split, 1);
+      final y = elementAt(split, 2);
 
       addIfValid(
         transformAttributes,
