@@ -1,3 +1,4 @@
+import 'package:svg_to_vector_drawable/attribute_name.dart';
 import 'package:xml/xml.dart';
 
 String multiply(dynamic v1, dynamic v2) =>
@@ -5,45 +6,18 @@ String multiply(dynamic v1, dynamic v2) =>
             (double.tryParse(v2.toString()) ?? 1))
         .toString();
 
-String android(String key) => 'android:$key';
-
-const _opacity = 'opacity';
-const _fillOpacity = 'fill-opacity';
-const _strokeOpacity = 'stroke-opacity';
-const _fill = 'fill';
-const _fillRule = 'fill-rule';
-const _stroke = 'stroke';
-const _strokeWidth = 'stroke-width';
-const _strokeLineJoin = 'stroke-linejoin';
-const _strokeMiterLimit = 'stroke-miterlimit';
-const _strokeLineCap = 'stroke-linecap';
-const _d = 'd';
-
-final convertMap = {
-  _fill: android('fillColor'),
-  _fillOpacity: android('fillAlpha'),
-  _fillRule: android('fillType'),
-  _stroke: android('strokeColor'),
-  _strokeOpacity: android('strokeAlpha'),
-  _strokeWidth: android('strokeWidth'),
-  _strokeLineJoin: android('strokeLineJoin'),
-  _strokeMiterLimit: android('strokeMiterLimit'),
-  _strokeLineCap: android('strokeLineCap'),
-  _d: android('pathData'),
-};
-
 XmlElement attributeConverter(XmlElement element) {
   final newAttributes = <XmlAttribute>[];
 
   // Parse opacity into its various possible forms
   // If stroke or fill opacity exists, then multiply by opacity
-  final opacity = element.getAttribute(_opacity);
-  final fillOpacity = element.getAttribute(_fillOpacity);
-  final strokeOpacity = element.getAttribute(_strokeOpacity);
+  final opacity = element.getAttribute(AttributeName.opacity);
+  final fillOpacity = element.getAttribute(AttributeName.fillOpacity);
+  final strokeOpacity = element.getAttribute(AttributeName.strokeOpacity);
   if (opacity != null || fillOpacity != null) {
     newAttributes.add(
       XmlAttribute(
-        XmlName(convertMap[_fillOpacity]!),
+        XmlName(AttributeName.toAndroid(AttributeName.fillOpacity)),
         multiply(opacity, fillOpacity),
       ),
     );
@@ -51,7 +25,7 @@ XmlElement attributeConverter(XmlElement element) {
   if (opacity != null || strokeOpacity != null) {
     newAttributes.add(
       XmlAttribute(
-        XmlName(convertMap[_strokeOpacity]!),
+        XmlName(AttributeName.toAndroid(AttributeName.strokeOpacity)),
         multiply(opacity, strokeOpacity),
       ),
     );
@@ -60,17 +34,17 @@ XmlElement attributeConverter(XmlElement element) {
   // Set a default fill value if none is present
   newAttributes.add(
     XmlAttribute(
-      XmlName(convertMap[_fill]!),
-      element.getAttribute(_fill) ?? '#000000',
+      XmlName(AttributeName.toAndroid(AttributeName.fill)),
+      element.getAttribute(AttributeName.fill) ?? '#000000',
     ),
   );
 
   // Handle fill-rule
-  final fillRule = element.getAttribute(_fillRule)?.toLowerCase();
+  final fillRule = element.getAttribute(AttributeName.fillRule)?.toLowerCase();
   if (fillRule != null) {
     newAttributes.add(
       XmlAttribute(
-        XmlName(convertMap[_fillRule]!),
+        XmlName(AttributeName.toAndroid(AttributeName.fillRule)),
         fillRule == 'evenOdd'.toLowerCase() ? 'evenOdd' : 'nonZero',
       ),
     );
@@ -78,18 +52,18 @@ XmlElement attributeConverter(XmlElement element) {
 
   // Handle default stroke width when required
   final needsStrokeWidth = [
-    _opacity,
-    _stroke,
-    _strokeOpacity,
-    _strokeLineJoin,
-    _strokeMiterLimit,
-    _strokeLineCap,
+    AttributeName.opacity,
+    AttributeName.stroke,
+    AttributeName.strokeOpacity,
+    AttributeName.strokeLineJoin,
+    AttributeName.strokeMiterLimit,
+    AttributeName.strokeLineCap,
   ].any((attribute) => element.getAttribute(attribute) != null);
-  final strokeWidth = element.getAttribute(_strokeWidth);
+  final strokeWidth = element.getAttribute(AttributeName.strokeWidth);
   if (needsStrokeWidth || strokeWidth != null) {
     newAttributes.add(
       XmlAttribute(
-        XmlName(convertMap[_strokeWidth]!),
+        XmlName(AttributeName.toAndroid(AttributeName.strokeWidth)),
         strokeWidth ?? '1',
       ),
     );
@@ -97,11 +71,11 @@ XmlElement attributeConverter(XmlElement element) {
 
   // Rename all other unconverted attributes
   final unconvertedAttributes = [
-    _stroke,
-    _strokeLineJoin,
-    _strokeMiterLimit,
-    _strokeLineCap,
-    _d,
+    AttributeName.stroke,
+    AttributeName.strokeLineJoin,
+    AttributeName.strokeMiterLimit,
+    AttributeName.strokeLineCap,
+    AttributeName.d,
   ];
   for (final attributeName in unconvertedAttributes) {
     final currentAttribute = element.getAttribute(attributeName);
@@ -109,7 +83,7 @@ XmlElement attributeConverter(XmlElement element) {
     if (currentAttribute != null) {
       newAttributes.add(
         XmlAttribute(
-          XmlName(convertMap[attributeName]!),
+          XmlName(AttributeName.toAndroid(attributeName)),
           currentAttribute,
         ),
       );
