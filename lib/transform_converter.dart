@@ -1,12 +1,12 @@
 import 'package:svg_to_vector_drawable/attribute_name.dart';
 import 'package:xml/xml.dart';
 
-const String defaultTranslate = '0';
-const String defaultScale = '1';
-const String defaultRotate = '0';
-const String defaultRotatePivot = '-1';
+const String _defaultTranslate = '0';
+const String _defaultScale = '1';
+const String _defaultRotate = '0';
+const String _defaultRotatePivot = '-1';
 
-void addIfValid(
+void _addIfValid(
   List<XmlAttribute> list,
   String? value,
   String defaultValue,
@@ -19,7 +19,7 @@ void addIfValid(
   }
 }
 
-String? elementAt(List<String>? list, int index) {
+String? _getElementAt(List<String>? list, int index) {
   if (list != null && list.length >= index + 1) {
     return list.elementAt(index);
   }
@@ -27,79 +27,98 @@ String? elementAt(List<String>? list, int index) {
   return null;
 }
 
-List<XmlAttribute> transformConverter(String? transform) {
-  if (transform == null) return [];
+class TransformConverter {
+  static List<XmlAttribute> fromString(String? transform) {
+    if (transform == null) return [];
 
-  final transformAttributes = <XmlAttribute>[];
+    final transformAttributes = <XmlAttribute>[];
 
-  final regex = RegExp(r'((\w|\s)+)\(([^)]+)', multiLine: true);
-  var startIndex = 0;
-  var match = regex.allMatches(transform, startIndex);
+    final transformRegExp = RegExp(r'((\w|\s)+)\(([^)]+)', multiLine: true);
+    var startIndex = 0;
+    var match = transformRegExp.allMatches(transform, startIndex);
 
-  while (match.isNotEmpty) {
-    startIndex = match.first.end;
-    final split = match.first.group(3)?.split(RegExp(r'[,\s]+'));
-    final transformName = match.first.group(1)?.trim();
+    while (match.isNotEmpty) {
+      startIndex = match.first.end;
+      final entriesRegExp = RegExp(r'[,\s]+');
+      final split = match.first.group(3)?.split(entriesRegExp);
+      final transformName = match.first.group(1)?.trim();
 
-    if (transformName == 'translate') {
-      final x = elementAt(split, 0);
-      final y = elementAt(split, 1);
+      if (transformName == 'translate') {
+        final x = _getElementAt(split, 0);
+        final y = _getElementAt(split, 1);
 
-      addIfValid(
-        transformAttributes,
-        x,
-        defaultTranslate,
-        AttributeName.androidTranslateX,
-      );
-      addIfValid(
-        transformAttributes,
-        y,
-        defaultTranslate,
-        AttributeName.androidTranslateY,
-      );
-    } else if (transformName == 'scale') {
-      final x = elementAt(split, 0);
-      final y = elementAt(split, 1);
+        _addIfValid(
+          transformAttributes,
+          x,
+          _defaultTranslate,
+          AttributeName.androidTranslateX,
+        );
+        _addIfValid(
+          transformAttributes,
+          y,
+          _defaultTranslate,
+          AttributeName.androidTranslateY,
+        );
+      } else if (transformName == 'scale') {
+        final x = _getElementAt(split, 0);
+        final y = _getElementAt(split, 1);
 
-      addIfValid(
-        transformAttributes,
-        x,
-        defaultScale,
-        AttributeName.androidScaleX,
-      );
-      addIfValid(
-        transformAttributes,
-        y,
-        defaultScale,
-        AttributeName.androidScaleY,
-      );
-    } else if (transformName == 'rotate') {
-      final r = elementAt(split, 0);
-      final x = elementAt(split, 1);
-      final y = elementAt(split, 2);
+        _addIfValid(
+          transformAttributes,
+          x,
+          _defaultScale,
+          AttributeName.androidScaleX,
+        );
+        _addIfValid(
+          transformAttributes,
+          y,
+          _defaultScale,
+          AttributeName.androidScaleY,
+        );
+      } else if (transformName == 'rotate') {
+        final r = _getElementAt(split, 0);
+        final x = _getElementAt(split, 1);
+        final y = _getElementAt(split, 2);
 
-      addIfValid(
-        transformAttributes,
-        r,
-        defaultRotate,
-        AttributeName.androidRotate,
-      );
-      addIfValid(
-        transformAttributes,
-        x,
-        defaultRotatePivot,
-        AttributeName.androidRotatePivotX,
-      );
-      addIfValid(
-        transformAttributes,
-        y,
-        defaultRotatePivot,
-        AttributeName.androidRotatePivotY,
-      );
+        _addIfValid(
+          transformAttributes,
+          r,
+          _defaultRotate,
+          AttributeName.androidRotate,
+        );
+        _addIfValid(
+          transformAttributes,
+          x,
+          _defaultRotatePivot,
+          AttributeName.androidRotatePivotX,
+        );
+        _addIfValid(
+          transformAttributes,
+          y,
+          _defaultRotatePivot,
+          AttributeName.androidRotatePivotY,
+        );
+      }
+
+      match = transformRegExp.allMatches(transform, startIndex);
     }
 
-    match = regex.allMatches(transform, startIndex);
+    return transformAttributes;
   }
 
-  return transformAttributes;
+  static XmlElement fromElement(XmlElement element) {
+    return XmlElement(
+      element.name.copy(),
+      [
+        ...fromString(element.getAttribute(AttributeName.transform)),
+        ...element.attributes
+            .where(
+              (attribute) => attribute.name.local != AttributeName.transform,
+            )
+            .map((attribute) => attribute.copy())
+      ],
+      element.children.map((child) => child.copy()),
+      element.isSelfClosing,
+    );
+  }
 }

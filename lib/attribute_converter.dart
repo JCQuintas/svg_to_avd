@@ -100,7 +100,11 @@ XmlElement attributeConverter(XmlElement element) {
 
   final transform = element.getAttribute(AttributeName.transform);
   if (transform != null) {
-    return XmlElement(XmlName('group'), transformConverter(transform), [clone]);
+    return XmlElement(
+      XmlName('group'),
+      TransformConverter.fromString(transform),
+      [clone],
+    );
   }
 
   return clone;
