@@ -7,11 +7,13 @@ class TestCase {
     required this.title,
     required this.input,
     required this.output,
+    this.isElementTestOnly = false,
   });
 
   final String title;
   final String input;
   final String output;
+  final bool isElementTestOnly;
 }
 
 final List<TestCase> testCases = [
@@ -80,20 +82,39 @@ final List<TestCase> testCases = [
     input: '<svg transform="translate(25)"/>',
     output:
         '<group android:translateX="25"><svg android:fillColor="#000000" /></group>',
+    isElementTestOnly: true,
   ),
 ];
 
 void main() {
-  group('attributeConverter', () {
+  group('AttributeConverter.fromElement', () {
     for (final testCase in testCases) {
       test(testCase.title, () {
         final baseElement =
             XmlDocument.parse(testCase.input).getElement('svg')!;
 
-        final result = attributeConverter(baseElement);
+        final result = AttributeConverter.fromElement(baseElement);
 
         expect(
           result.toXmlString(pretty: true),
+          XmlDocument.parse(testCase.output).toXmlString(pretty: true),
+        );
+      });
+    }
+  });
+
+  group('AttributeConverter.fromAttributes', () {
+    for (final testCase in testCases.where((v) => !v.isElementTestOnly)) {
+      test(testCase.title, () {
+        final baseElement =
+            XmlDocument.parse(testCase.input).getElement('svg')!;
+
+        final result = AttributeConverter.fromAttributes(
+          baseElement.attributes,
+        );
+
+        expect(
+          XmlElement(XmlName('svg'), result).toXmlString(pretty: true),
           XmlDocument.parse(testCase.output).toXmlString(pretty: true),
         );
       });
