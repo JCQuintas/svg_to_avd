@@ -1,9 +1,9 @@
-import 'package:svg_to_vector_drawable/errors/invalid_svg_string_exception.dart';
-import 'package:svg_to_vector_drawable/replace_use_tags.dart';
+import 'package:svg_to_avd/errors/invalid_svg_string_exception.dart';
+import 'package:svg_to_avd/replace_use_tags.dart';
 import 'package:xml/xml.dart';
 
 /// Converts the [svgString] into a Vector Drawable.
-String svgToVectorDrawable(String svgString) {
+String svgToAvd(String svgString) {
   final document = XmlDocument.parse(svgString);
 
   final globalSvg = document.getElement('svg');

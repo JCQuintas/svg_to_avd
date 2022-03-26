@@ -1,4 +1,4 @@
-import 'package:svg_to_vector_drawable/transform_converter.dart';
+import 'package:svg_to_avd/transform_converter.dart';
 import 'package:test/test.dart';
 import 'package:xml/xml.dart';
 

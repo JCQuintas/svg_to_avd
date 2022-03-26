@@ -1,4 +1,4 @@
-import 'package:svg_to_vector_drawable/errors/svg_to_vd_exception.dart';
+import 'package:svg_to_avd/errors/svg_to_vd_exception.dart';
 
 class InvalidAttributeNameException extends SvgToVdException {
   InvalidAttributeNameException(String attributeName)

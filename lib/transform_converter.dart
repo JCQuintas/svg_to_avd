@@ -1,4 +1,4 @@
-import 'package:svg_to_vector_drawable/attribute_name.dart';
+import 'package:svg_to_avd/attribute_name.dart';
 import 'package:xml/xml.dart';
 
 const String _defaultTranslate = '0';

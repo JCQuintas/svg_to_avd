@@ -1,11 +1,11 @@
-import 'package:svg_to_vector_drawable/replace_use_tags.dart';
+import 'package:svg_to_avd/replace_use_tags.dart';
 import 'package:test/test.dart';
 import 'package:xml/xml.dart';
 
 import 'helpers/helpers.dart';
 
 void main() {
-  group('svgToVectorDrawable', () {
+  group('replaceUseTags', () {
     test('parses the use attribute', () {
       final baseElement =
           XmlDocument.parse(fixture('use.svg')).getElement('svg')!;

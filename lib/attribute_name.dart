@@ -1,4 +1,4 @@
-import 'package:svg_to_vector_drawable/errors/invalid_attribute_name_exception.dart';
+import 'package:svg_to_avd/errors/invalid_attribute_name_exception.dart';
 
 String android(String key) => 'android:$key';
 

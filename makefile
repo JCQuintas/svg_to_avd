@@ -1,4 +1,4 @@
-PROJECTNAME = "svg_to_vector_drawable"
+PROJECTNAME = "svg_to_avd"
 ROOT := $(shell git rev-parse --show-toplevel)
 FLUTTER := $(shell which flutter)
 FLUTTER_BIN_DIR := $(shell dirname $(FLUTTER))

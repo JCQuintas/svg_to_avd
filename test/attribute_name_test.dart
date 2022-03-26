@@ -1,5 +1,5 @@
-import 'package:svg_to_vector_drawable/attribute_name.dart';
-import 'package:svg_to_vector_drawable/errors/invalid_attribute_name_exception.dart';
+import 'package:svg_to_avd/attribute_name.dart';
+import 'package:svg_to_avd/errors/invalid_attribute_name_exception.dart';
 import 'package:test/test.dart';
 
 void main() {

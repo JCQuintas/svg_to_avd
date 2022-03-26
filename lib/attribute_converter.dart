@@ -1,5 +1,5 @@
-import 'package:svg_to_vector_drawable/attribute_name.dart';
-import 'package:svg_to_vector_drawable/transform_converter.dart';
+import 'package:svg_to_avd/attribute_name.dart';
+import 'package:svg_to_avd/transform_converter.dart';
 import 'package:xml/xml.dart';
 
 String _multiply(dynamic v1, dynamic v2) =>
