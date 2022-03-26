@@ -101,6 +101,29 @@ void main() {
         );
       });
     }
+
+    test('inherits styles from parent "g" element', () {
+      final baseElement = XmlDocument.parse(
+        '<g stroke-width="5" fill="#777777"> '
+        '<g fill-rule="evenOdd"> '
+        '<svg fill="#ffffff"/> '
+        '</g>'
+        '</g>',
+      ).getElement('g')?.getElement('g')?.getElement('svg');
+
+      final result = AttributeConverter.fromElement(baseElement!);
+
+      expect(
+        result.toXmlString(pretty: true),
+        XmlDocument.parse(
+          '<svg '
+          'android:fillColor="#ffffff" '
+          'android:fillType="evenOdd" '
+          'android:strokeWidth="5" '
+          '/>',
+        ).toXmlString(pretty: true),
+      );
+    });
   });
 
   group('AttributeConverter.fromAttributes', () {

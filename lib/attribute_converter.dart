@@ -101,7 +101,25 @@ class AttributeConverter {
   }
 
   static XmlElement fromElement(XmlElement element) {
-    final newAttributes = fromAttributes(element.attributes);
+    final temporaryElement = XmlElement(
+      XmlName('svg-to-avd:temporary-container'),
+      element.attributes.map((child) => child.copy()),
+    );
+
+    final groupParents = element.ancestorElements
+        .where((e) => e.name.local == 'g')
+        .toList()
+        .reversed;
+
+    for (final parent in groupParents) {
+      for (final attribute in parent.attributes) {
+        if (temporaryElement.getAttribute(attribute.name.local) == null) {
+          temporaryElement.setAttribute(attribute.name.local, attribute.value);
+        }
+      }
+    }
+
+    final newAttributes = fromAttributes(temporaryElement.attributes);
 
     final clone = XmlElement(
       element.name.copy(),
