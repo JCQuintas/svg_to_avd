@@ -24,8 +24,8 @@ void main() {
         XmlDocument.parse(
           '<svg '
           'android:rotate="-10" '
-          'android:rotatePivotX="50" '
-          'android:rotatePivotY="100" '
+          'android:pivotX="50" '
+          'android:pivotY="100" '
           'android:translateX="-36" '
           'android:translateY="45.5" '
           'android:scaleY="0.5" '
@@ -57,8 +57,8 @@ void main() {
         XmlDocument.parse(
           '<svg '
           'android:rotate="-10" '
-          'android:rotatePivotX="50" '
-          'android:rotatePivotY="100" '
+          'android:pivotX="50" '
+          'android:pivotY="100" '
           'android:translateX="-36" '
           'android:translateY="45.5" '
           'android:scaleY="0.5" '

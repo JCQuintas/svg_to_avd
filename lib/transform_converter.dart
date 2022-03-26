@@ -4,7 +4,7 @@ import 'package:xml/xml.dart';
 const String _defaultTranslate = '0';
 const String _defaultScale = '1';
 const String _defaultRotate = '0';
-const String _defaultRotatePivot = '-1';
+const String _defaultPivot = '-1';
 
 void _addIfValid(
   List<XmlAttribute> list,
@@ -89,14 +89,14 @@ class TransformConverter {
         _addIfValid(
           transformAttributes,
           x,
-          _defaultRotatePivot,
-          AttributeName.androidRotatePivotX,
+          _defaultPivot,
+          AttributeName.androidPivotX,
         );
         _addIfValid(
           transformAttributes,
           y,
-          _defaultRotatePivot,
-          AttributeName.androidRotatePivotY,
+          _defaultPivot,
+          AttributeName.androidPivotY,
         );
       }
 

@@ -23,7 +23,7 @@ class AttributeConverter {
     if (opacity != null || fillOpacity != null) {
       newAttributes.add(
         XmlAttribute(
-          XmlName(AttributeName.toAndroid(AttributeName.fillOpacity)),
+          XmlName(AttributeName.androidFillAlpha),
           _multiply(opacity, fillOpacity),
         ),
       );
@@ -31,7 +31,7 @@ class AttributeConverter {
     if (opacity != null || strokeOpacity != null) {
       newAttributes.add(
         XmlAttribute(
-          XmlName(AttributeName.toAndroid(AttributeName.strokeOpacity)),
+          XmlName(AttributeName.androidStrokeAlpha),
           _multiply(opacity, strokeOpacity),
         ),
       );
@@ -40,7 +40,7 @@ class AttributeConverter {
     // Set a default fill value if none is present
     newAttributes.add(
       XmlAttribute(
-        XmlName(AttributeName.toAndroid(AttributeName.fill)),
+        XmlName(AttributeName.androidFillColor),
         element.getAttribute(AttributeName.fill) ?? '#000000',
       ),
     );
@@ -51,7 +51,7 @@ class AttributeConverter {
     if (fillRule != null) {
       newAttributes.add(
         XmlAttribute(
-          XmlName(AttributeName.toAndroid(AttributeName.fillRule)),
+          XmlName(AttributeName.androidFillType),
           fillRule == 'evenOdd'.toLowerCase() ? 'evenOdd' : 'nonZero',
         ),
       );
@@ -70,7 +70,7 @@ class AttributeConverter {
     if (needsStrokeWidth || strokeWidth != null) {
       newAttributes.add(
         XmlAttribute(
-          XmlName(AttributeName.toAndroid(AttributeName.strokeWidth)),
+          XmlName(AttributeName.androidStrokeWidth),
           strokeWidth ?? '1',
         ),
       );
