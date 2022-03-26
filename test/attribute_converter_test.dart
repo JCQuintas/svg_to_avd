@@ -2,8 +2,8 @@ import 'package:svg_to_avd/attribute_converter.dart';
 import 'package:test/test.dart';
 import 'package:xml/xml.dart';
 
-class TestCase {
-  TestCase({
+class _TestCase {
+  _TestCase({
     required this.title,
     required this.input,
     required this.output,
@@ -16,8 +16,8 @@ class TestCase {
   final bool isElementTestOnly;
 }
 
-final List<TestCase> testCases = [
-  TestCase(
+final List<_TestCase> _testCases = [
+  _TestCase(
     title: 'converts opacity in a given element to stroke and fill alpha',
     input: '<svg opacity="0.5" />',
     output: '<svg '
@@ -27,7 +27,7 @@ final List<TestCase> testCases = [
         'android:strokeWidth="1" '
         '/>',
   ),
-  TestCase(
+  _TestCase(
     title:
         'converts existing stroke or fill opacity by multiplying it by opacity',
     input: '<svg opacity="0.5" fill-opacity="0.5" stroke-opacity="0.2"/>',
@@ -38,27 +38,27 @@ final List<TestCase> testCases = [
         'android:strokeWidth="1"'
         '/>',
   ),
-  TestCase(
+  _TestCase(
     title: 'keeps existing fill value if present',
     input: '<svg fill="#ffffff"/>',
     output: '<svg android:fillColor="#ffffff"/>',
   ),
-  TestCase(
+  _TestCase(
     title: 'keeps fill-rule when it is evenOdd',
     input: '<svg fill-rule="evenOdd"/>',
     output: '<svg android:fillColor="#000000" android:fillType="evenOdd"/>',
   ),
-  TestCase(
+  _TestCase(
     title: 'keeps fill-rule when it is nonZero',
     input: '<svg fill-rule="nonZero"/>',
     output: '<svg android:fillColor="#000000" android:fillType="nonZero"/>',
   ),
-  TestCase(
+  _TestCase(
     title: 'keeps stroke-width when it exists',
     input: '<svg stroke-width="2"/>',
     output: '<svg android:fillColor="#000000" android:strokeWidth="2"/>',
   ),
-  TestCase(
+  _TestCase(
     title: 'convert names of all other attributes',
     input: '<svg '
         'stroke="#ffffff" '
@@ -77,7 +77,7 @@ final List<TestCase> testCases = [
         'android:pathData="M1,1 h4 M1,3 h4 M1,5 h4" '
         '/>',
   ),
-  TestCase(
+  _TestCase(
     title: 'wraps element in a group when it contains transforms',
     input: '<svg transform="translate(25)"/>',
     output:
@@ -88,7 +88,7 @@ final List<TestCase> testCases = [
 
 void main() {
   group('AttributeConverter.fromElement', () {
-    for (final testCase in testCases) {
+    for (final testCase in _testCases) {
       test(testCase.title, () {
         final baseElement =
             XmlDocument.parse(testCase.input).getElement('svg')!;
@@ -127,7 +127,7 @@ void main() {
   });
 
   group('AttributeConverter.fromAttributes', () {
-    for (final testCase in testCases.where((v) => !v.isElementTestOnly)) {
+    for (final testCase in _testCases.where((v) => !v.isElementTestOnly)) {
       test(testCase.title, () {
         final baseElement =
             XmlDocument.parse(testCase.input).getElement('svg')!;
