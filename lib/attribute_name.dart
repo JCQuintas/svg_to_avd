@@ -14,6 +14,9 @@ class AttributeName {
   static String strokeMiterLimit = 'stroke-miterlimit';
   static String strokeLineCap = 'stroke-linecap';
   static String d = 'd';
+  static String width = 'width';
+  static String height = 'height';
+
   static String transform = 'transform';
 
   // general
@@ -27,6 +30,10 @@ class AttributeName {
   static String androidStrokeMiterLimit = android('strokeMiterLimit');
   static String androidStrokeLineCap = android('strokeLineCap');
   static String androidPathData = android('pathData');
+  static String androidWidth = android('width');
+  static String androidHeight = android('height');
+  static String androidViewportWidth = android('viewportWidth');
+  static String androidViewportHeight = android('viewportHeight');
 
   // transforms
   static String androidTranslateX = android('translateX');
@@ -34,8 +41,8 @@ class AttributeName {
   static String androidScaleX = android('scaleX');
   static String androidScaleY = android('scaleY');
   static String androidRotate = android('rotate');
-  static String androidRotatePivotX = android('rotatePivotX');
-  static String androidRotatePivotY = android('rotatePivotY');
+  static String androidPivotX = android('pivotX');
+  static String androidPivotY = android('pivotY');
 
   static final _convertMap = {
     fill: androidFillColor,
@@ -48,6 +55,8 @@ class AttributeName {
     strokeMiterLimit: androidStrokeMiterLimit,
     strokeLineCap: androidStrokeLineCap,
     d: androidPathData,
+    width: androidWidth,
+    height: androidHeight
   };
 
   static String toAndroid(String attributeName) {
