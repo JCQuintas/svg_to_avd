@@ -4,9 +4,9 @@ import 'package:xml/xml.dart';
 
 void main() {
   group('TransformConverter.fromElement', () {
-    test('parses transform properties and keep unchanged props in place', () {
+    test('parses transform properties', () {
       final element = XmlDocument.parse(
-        '<svg '
+        '<g '
         'transform=" '
         'rotate(-10 50 100) '
         'translate(-36 45.5) '
@@ -15,21 +15,20 @@ void main() {
         '" '
         'stroke="#ffffff" '
         '/>',
-      ).getElement('svg')!;
+      ).getElement('g')!;
 
-      final result = TransformConverter.fromElement(element);
+      final result = TransformConverter.fromElement(element)!;
 
       expect(
         result.toXmlString(pretty: true),
         XmlDocument.parse(
-          '<svg '
-          'android:rotate="-10" '
+          '<group '
+          'android:rotation="-10" '
           'android:pivotX="50" '
           'android:pivotY="100" '
           'android:translateX="-36" '
           'android:translateY="45.5" '
           'android:scaleY="0.5" '
-          'stroke="#ffffff" '
           '/>',
         ).toXmlString(pretty: true),
       );
@@ -56,7 +55,7 @@ void main() {
         XmlElement(XmlName('svg'), result).toXmlString(pretty: true),
         XmlDocument.parse(
           '<svg '
-          'android:rotate="-10" '
+          'android:rotation="-10" '
           'android:pivotX="50" '
           'android:pivotY="100" '
           'android:translateX="-36" '

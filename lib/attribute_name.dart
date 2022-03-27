@@ -53,7 +53,7 @@ class AttributeName {
   static final String androidTranslateY = android('translateY');
   static final String androidScaleX = android('scaleX');
   static final String androidScaleY = android('scaleY');
-  static final String androidRotate = android('rotate');
+  static final String androidRotation = android('rotation');
   static final String androidPivotX = android('pivotX');
   static final String androidPivotY = android('pivotY');
 

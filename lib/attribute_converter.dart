@@ -1,5 +1,5 @@
 import 'package:svg_to_avd/attribute_name.dart';
-import 'package:svg_to_avd/transform_converter.dart';
+import 'package:svg_to_avd/element_name.dart';
 import 'package:xml/xml.dart';
 
 String _multiply(dynamic v1, dynamic v2) =>
@@ -107,7 +107,7 @@ class AttributeConverter {
     );
 
     final groupParents = element.ancestorElements
-        .where((e) => e.name.local == 'g')
+        .where((e) => e.name.local == ElementName.g)
         .toList()
         .reversed;
 
@@ -121,21 +121,22 @@ class AttributeConverter {
 
     final newAttributes = fromAttributes(temporaryElement.attributes);
 
+    final transform = element.getAttribute(AttributeName.transform);
+    if (transform != null) {
+      newAttributes.add(
+        XmlAttribute(
+          XmlName(AttributeName.transform),
+          transform,
+        ),
+      );
+    }
+
     final clone = XmlElement(
       element.name.copy(),
       newAttributes,
       element.children.map((child) => child.copy()),
       element.isSelfClosing,
     );
-
-    final transform = element.getAttribute(AttributeName.transform);
-    if (transform != null) {
-      return XmlElement(
-        XmlName('group'),
-        TransformConverter.fromString(transform),
-        [clone],
-      );
-    }
 
     return clone;
   }

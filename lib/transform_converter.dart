@@ -1,4 +1,5 @@
 import 'package:svg_to_avd/attribute_name.dart';
+import 'package:svg_to_avd/element_name.dart';
 import 'package:xml/xml.dart';
 
 const String _defaultTranslate = '0';
@@ -84,7 +85,7 @@ class TransformConverter {
           transformAttributes,
           r,
           _defaultRotate,
-          AttributeName.androidRotate,
+          AttributeName.androidRotation,
         );
         _addIfValid(
           transformAttributes,
@@ -106,18 +107,31 @@ class TransformConverter {
     return transformAttributes;
   }
 
-  static XmlElement fromElement(XmlElement element) {
+  static XmlElement? fromElement(XmlElement element) {
+    if (element.name.local != ElementName.g) return null;
+
     return XmlElement(
-      element.name.copy(),
-      [
-        ...fromString(element.getAttribute(AttributeName.transform)),
-        ...element.attributes
-            .where(
-              (attribute) => attribute.name.local != AttributeName.transform,
-            )
-            .map((attribute) => attribute.copy())
-      ],
+      XmlName(ElementName.group),
+      fromString(element.getAttribute(AttributeName.transform)),
       element.children.map((child) => child.copy()),
+      element.isSelfClosing,
+    );
+  }
+
+  static XmlElement? wrapInGroup(XmlElement element) {
+    final transform = element.getAttribute(AttributeName.transform);
+    if (element.name.local == ElementName.g || transform == null) {
+      return null;
+    }
+
+    return XmlElement(
+      XmlName(ElementName.group),
+      fromString(transform),
+      [
+        element
+          ..removeAttribute(AttributeName.transform)
+          ..copy()
+      ],
       element.isSelfClosing,
     );
   }
