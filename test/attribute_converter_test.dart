@@ -78,9 +78,10 @@ final List<_TestCase> _testCases = [
         '/>',
   ),
   _TestCase(
-    title: 'keep transform in the element for later parsing',
+    title: 'wraps element in a group when it contains transforms',
     input: '<svg transform="translate(25)"/>',
-    output: '<svg android:fillColor="#000000" transform="translate(25)" />',
+    output:
+        '<g transform="translate(25)"><svg android:fillColor="#000000" /></g>',
     isElementTestOnly: true,
   ),
 ];

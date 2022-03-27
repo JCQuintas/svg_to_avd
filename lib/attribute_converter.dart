@@ -106,10 +106,8 @@ class AttributeConverter {
       element.attributes.map((child) => child.copy()),
     );
 
-    final groupParents = element.ancestorElements
-        .where((e) => e.name.local == ElementName.g)
-        .toList()
-        .reversed;
+    final groupParents =
+        element.ancestorElements.where((e) => e.name.local == ElementName.g);
 
     for (final parent in groupParents) {
       for (final attribute in parent.attributes) {
@@ -121,22 +119,21 @@ class AttributeConverter {
 
     final newAttributes = fromAttributes(temporaryElement.attributes);
 
-    final transform = element.getAttribute(AttributeName.transform);
-    if (transform != null) {
-      newAttributes.add(
-        XmlAttribute(
-          XmlName(AttributeName.transform),
-          transform,
-        ),
-      );
-    }
-
     final clone = XmlElement(
       element.name.copy(),
       newAttributes,
       element.children.map((child) => child.copy()),
       element.isSelfClosing,
     );
+
+    final transform = element.getAttributeNode(AttributeName.transform);
+    if (transform != null) {
+      return XmlElement(
+        XmlName(ElementName.g),
+        [transform.copy()],
+        [clone],
+      );
+    }
 
     return clone;
   }

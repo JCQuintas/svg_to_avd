@@ -117,22 +117,4 @@ class TransformConverter {
       element.isSelfClosing,
     );
   }
-
-  static XmlElement? wrapInGroup(XmlElement element) {
-    final transform = element.getAttribute(AttributeName.transform);
-    if (element.name.local == ElementName.g || transform == null) {
-      return null;
-    }
-
-    return XmlElement(
-      XmlName(ElementName.group),
-      fromString(transform),
-      [
-        element
-          ..removeAttribute(AttributeName.transform)
-          ..copy()
-      ],
-      element.isSelfClosing,
-    );
-  }
 }

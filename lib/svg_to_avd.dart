@@ -17,8 +17,7 @@ String svgToAvd(String svgString) {
 
   replaceUseTags(globalSvg);
 
-  // ignore: avoid_function_literals_in_foreach_calls
-  globalSvg.descendantElements.toList().reversed.forEach((element) {
+  for (final element in globalSvg.descendantElements) {
     final pathElement = PathConverter.fromElement(element);
 
     final convertedAttributes =
@@ -27,23 +26,14 @@ String svgToAvd(String svgString) {
     if (element.name.local != ElementName.g) {
       element.replace(convertedAttributes);
     }
-  });
+  }
 
-  // ignore: avoid_function_literals_in_foreach_calls
-  globalSvg.descendantElements.forEach((element) {
+  for (final element in globalSvg.descendantElements) {
     final transformElement = TransformConverter.fromElement(element);
     if (transformElement != null) {
       element.replace(transformElement);
     }
-  });
-
-  // ignore: avoid_function_literals_in_foreach_calls
-  globalSvg.descendantElements.forEach((element) {
-    final wrappedElement = TransformConverter.wrapInGroup(element);
-    if (wrappedElement != null) {
-      element.replace(wrappedElement);
-    }
-  });
+  }
 
   final vectorRoot = RootElementConverter.fromElement(globalSvg);
 
