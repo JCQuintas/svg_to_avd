@@ -17,6 +17,19 @@ class AttributeName {
   static String width = 'width';
   static String height = 'height';
 
+  static String x = 'x';
+  static String x1 = 'x1';
+  static String x2 = 'x2';
+  static String y = 'y';
+  static String y1 = 'y1';
+  static String y2 = 'y2';
+  static String r = 'r';
+  static String rx = 'rx';
+  static String ry = 'ry';
+  static String cx = 'cx';
+  static String cy = 'cy';
+  static String points = 'points';
+
   static String transform = 'transform';
 
   // general
