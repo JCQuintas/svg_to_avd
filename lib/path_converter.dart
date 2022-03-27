@@ -35,6 +35,20 @@ XmlElement _buildPath(
 
 class PathConverter {
   static XmlElement fromElement(XmlElement element) {
+    switch (element.name.local) {
+      case ElementName.line:
+        return PathConverter.fromLine(element);
+      case ElementName.rect:
+        return PathConverter.fromRect(element);
+      case ElementName.circle:
+        return PathConverter.fromCircle(element);
+      case ElementName.ellipse:
+        return PathConverter.fromEllipse(element);
+      case ElementName.polygon:
+        return PathConverter.fromPoly(element);
+      case ElementName.polyline:
+        return PathConverter.fromPoly(element, isPolyline: true);
+    }
     return element;
   }
 

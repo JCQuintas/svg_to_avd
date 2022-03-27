@@ -3,59 +3,59 @@ import 'package:svg_to_avd/errors/invalid_attribute_name_exception.dart';
 String android(String key) => 'android:$key';
 
 class AttributeName {
-  static String opacity = 'opacity';
-  static String fillOpacity = 'fill-opacity';
-  static String strokeOpacity = 'stroke-opacity';
-  static String fill = 'fill';
-  static String fillRule = 'fill-rule';
-  static String stroke = 'stroke';
-  static String strokeWidth = 'stroke-width';
-  static String strokeLineJoin = 'stroke-linejoin';
-  static String strokeMiterLimit = 'stroke-miterlimit';
-  static String strokeLineCap = 'stroke-linecap';
-  static String d = 'd';
-  static String width = 'width';
-  static String height = 'height';
+  static const String opacity = 'opacity';
+  static const String fillOpacity = 'fill-opacity';
+  static const String strokeOpacity = 'stroke-opacity';
+  static const String fill = 'fill';
+  static const String fillRule = 'fill-rule';
+  static const String stroke = 'stroke';
+  static const String strokeWidth = 'stroke-width';
+  static const String strokeLineJoin = 'stroke-linejoin';
+  static const String strokeMiterLimit = 'stroke-miterlimit';
+  static const String strokeLineCap = 'stroke-linecap';
+  static const String d = 'd';
+  static const String width = 'width';
+  static const String height = 'height';
 
-  static String x = 'x';
-  static String x1 = 'x1';
-  static String x2 = 'x2';
-  static String y = 'y';
-  static String y1 = 'y1';
-  static String y2 = 'y2';
-  static String r = 'r';
-  static String rx = 'rx';
-  static String ry = 'ry';
-  static String cx = 'cx';
-  static String cy = 'cy';
-  static String points = 'points';
+  static const String x = 'x';
+  static const String x1 = 'x1';
+  static const String x2 = 'x2';
+  static const String y = 'y';
+  static const String y1 = 'y1';
+  static const String y2 = 'y2';
+  static const String r = 'r';
+  static const String rx = 'rx';
+  static const String ry = 'ry';
+  static const String cx = 'cx';
+  static const String cy = 'cy';
+  static const String points = 'points';
 
-  static String transform = 'transform';
+  static const String transform = 'transform';
 
   // general
-  static String androidFillColor = android('fillColor');
-  static String androidFillAlpha = android('fillAlpha');
-  static String androidFillType = android('fillType');
-  static String androidStrokeColor = android('strokeColor');
-  static String androidStrokeAlpha = android('strokeAlpha');
-  static String androidStrokeWidth = android('strokeWidth');
-  static String androidStrokeLineJoin = android('strokeLineJoin');
-  static String androidStrokeMiterLimit = android('strokeMiterLimit');
-  static String androidStrokeLineCap = android('strokeLineCap');
-  static String androidPathData = android('pathData');
-  static String androidWidth = android('width');
-  static String androidHeight = android('height');
-  static String androidViewportWidth = android('viewportWidth');
-  static String androidViewportHeight = android('viewportHeight');
+  static final String androidFillColor = android('fillColor');
+  static final String androidFillAlpha = android('fillAlpha');
+  static final String androidFillType = android('fillType');
+  static final String androidStrokeColor = android('strokeColor');
+  static final String androidStrokeAlpha = android('strokeAlpha');
+  static final String androidStrokeWidth = android('strokeWidth');
+  static final String androidStrokeLineJoin = android('strokeLineJoin');
+  static final String androidStrokeMiterLimit = android('strokeMiterLimit');
+  static final String androidStrokeLineCap = android('strokeLineCap');
+  static final String androidPathData = android('pathData');
+  static final String androidWidth = android('width');
+  static final String androidHeight = android('height');
+  static final String androidViewportWidth = android('viewportWidth');
+  static final String androidViewportHeight = android('viewportHeight');
 
   // transforms
-  static String androidTranslateX = android('translateX');
-  static String androidTranslateY = android('translateY');
-  static String androidScaleX = android('scaleX');
-  static String androidScaleY = android('scaleY');
-  static String androidRotate = android('rotate');
-  static String androidPivotX = android('pivotX');
-  static String androidPivotY = android('pivotY');
+  static final String androidTranslateX = android('translateX');
+  static final String androidTranslateY = android('translateY');
+  static final String androidScaleX = android('scaleX');
+  static final String androidScaleY = android('scaleY');
+  static final String androidRotate = android('rotate');
+  static final String androidPivotX = android('pivotX');
+  static final String androidPivotY = android('pivotY');
 
   static final _convertMap = {
     fill: androidFillColor,
