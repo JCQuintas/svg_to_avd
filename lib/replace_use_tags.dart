@@ -3,7 +3,7 @@ import 'package:xml/xml.dart';
 /// Receives a [svg] and replaces all the <use> tags into the elements
 /// that they reference. This changes [svg] in place.
 void replaceUseTags(XmlElement svg) {
-  svg.findElements('use').forEach((element) {
+  svg.descendantElements.where((e) => e.name.local == 'use').forEach((element) {
     final href = element.getAttribute('xlink:href')?.trim() ??
         element.getAttribute('href')?.trim();
 
