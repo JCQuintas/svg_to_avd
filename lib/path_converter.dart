@@ -17,24 +17,30 @@ double _getAttribute(XmlElement element, String attribute) =>
 
 XmlElement _buildPath(
   String path,
-  List<XmlAttribute> attributes,
+  XmlElement element,
   List<String> filterAttributes,
-) =>
-    XmlElement(
-      XmlName(ElementName.path),
-      [
-        ...attributes
-            .where(
-              (attribute) => !filterAttributes.contains(attribute.name.local),
-            )
-            .map((e) => e.copy())
-            .toList(),
-        XmlAttribute(XmlName(AttributeName.d), path),
-      ],
-    );
+) {
+  final newElement = XmlElement(
+    XmlName(ElementName.path),
+    [
+      ...element.attributes
+          .where(
+            (attribute) => !filterAttributes.contains(attribute.name.local),
+          )
+          .map((e) => e.copy()),
+      XmlAttribute(XmlName(AttributeName.d), path),
+    ],
+  );
+  final parent = element.parent;
+  if (parent != null) {
+    newElement.attachParent(parent);
+  }
+
+  return newElement;
+}
 
 class PathConverter {
-  static XmlElement fromElement(XmlElement element) {
+  static XmlElement? fromElement(XmlElement element) {
     switch (element.name.local) {
       case ElementName.line:
         return PathConverter.fromLine(element);
@@ -49,7 +55,7 @@ class PathConverter {
       case ElementName.polyline:
         return PathConverter.fromPoly(element, isPolyline: true);
     }
-    return element;
+    return null;
   }
 
   static XmlElement fromLine(XmlElement lineTag) {
@@ -65,7 +71,7 @@ class PathConverter {
     final y2 = _getAttribute(lineTag, AttributeName.y2);
     return _buildPath(
       'M $x1 $y1 L $x2 $y2',
-      lineTag.attributes,
+      lineTag,
       filterAttributes,
     );
   }
@@ -98,7 +104,7 @@ class PathConverter {
     if (rx == 0 && ry == 0) {
       return _buildPath(
         'M $x $y H $r V $b H $x V $y Z',
-        rectTag.attributes,
+        rectTag,
         filterAttributes,
       );
     } else {
@@ -113,7 +119,7 @@ class PathConverter {
         'L $x ${_c(y + ry)} '
         'Q $x $y ${_c(x + rx)} $y '
         'Z',
-        rectTag.attributes,
+        rectTag,
         filterAttributes,
       );
     }
@@ -138,7 +144,7 @@ class PathConverter {
       'C ${_c(cx - cd)} ${_c(cy + r)} ${_c(cx - r)} ${_c(cy + cd)} ${_c(cx - r)} $cy '
       'C ${_c(cx - r)} ${_c(cy - cd)} ${_c(cx - cd)} ${_c(cy - r)} $cx ${_c(cy - r)} '
       'Z',
-      circleTag.attributes,
+      circleTag,
       filterAttributes,
     );
   }
@@ -165,7 +171,7 @@ class PathConverter {
       'C ${_c(cx - cdx)} ${_c(cy + ry)} ${_c(cx - rx)} ${_c(cy + cdy)} ${_c(cx - rx)} $cy '
       'C ${_c(cx - rx)} ${_c(cy - cdy)} ${_c(cx - cdx)} ${_c(cy - ry)} $cx ${_c(cy - ry)} '
       'Z',
-      ellipseTag.attributes,
+      ellipseTag,
       filterAttributes,
     );
   }
@@ -201,7 +207,7 @@ class PathConverter {
       }
       return _buildPath(
         buffer.toString(),
-        polylineTag.attributes,
+        polylineTag,
         filterAttributes,
       );
     } else {

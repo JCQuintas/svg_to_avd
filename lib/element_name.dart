@@ -8,4 +8,6 @@ class ElementName {
   static const String g = 'g';
 
   static const String path = 'path';
+
+  static const String group = 'group';
 }
