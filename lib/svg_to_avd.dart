@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:svg_to_avd/attribute_converter.dart';
 import 'package:svg_to_avd/element_name.dart';
 import 'package:svg_to_avd/errors/invalid_svg_string_exception.dart';

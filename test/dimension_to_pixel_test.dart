@@ -25,7 +25,7 @@ final _testCases = [
 
 void main() {
   group('dimensionToPixel', () {
-    for (var testCase in _testCases) {
+    for (final testCase in _testCases) {
       test('parses ${testCase.unit} value', () {
         expect(dimensionToPixel('24${testCase.unit}'), testCase.result);
       });
