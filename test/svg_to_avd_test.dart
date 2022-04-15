@@ -31,11 +31,13 @@ void main() {
       expect(shouldThrow, throwsA(isA<InvalidSvgStringException>()));
     });
 
-    test('throws an InvalidSvgStringException error when input is not a svg',
-        () {
-      void shouldThrow() => SvgToAvd.fromString('<nice></nice>');
+    test(
+      'throws an InvalidSvgStringException error when input is not a svg',
+      () {
+        void shouldThrow() => SvgToAvd.fromString('<nice></nice>');
 
-      expect(shouldThrow, throwsA(isA<InvalidSvgStringException>()));
-    });
+        expect(shouldThrow, throwsA(isA<InvalidSvgStringException>()));
+      },
+    );
   });
 }

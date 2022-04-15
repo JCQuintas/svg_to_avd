@@ -6,10 +6,10 @@ import 'package:xml/xml.dart';
 
 const double _kappa = 0.5522847498307935;
 
-// clamp
+// Clamp.
 double _c(double number) => double.parse(number.toStringAsPrecision(12));
 
-// string to double
+// String to double.
 double _stod(String string) => _c(double.parse(string));
 
 double _getAttribute(XmlElement element, String attribute) =>
@@ -83,7 +83,7 @@ class PathConverter {
       AttributeName.width,
       AttributeName.height,
       AttributeName.rx,
-      AttributeName.ry
+      AttributeName.ry,
     ];
 
     final x = _getAttribute(rectTag, AttributeName.x);
@@ -101,35 +101,29 @@ class PathConverter {
       rx = ry;
     }
 
-    if (rx == 0 && ry == 0) {
-      return _buildPath(
-        'M $x $y H $r V $b H $x V $y Z',
-        rectTag,
-        filterAttributes,
-      );
-    } else {
-      return _buildPath(
-        'M ${_c(x + rx)} $y '
-        'L ${_c(r - rx)} $y '
-        'Q $r $y $r ${_c(y + ry)} '
-        'L $r ${_c(y + h - ry)} '
-        'Q $r $b ${_c(r - rx)} $b '
-        'L ${_c(x + rx)} $b '
-        'Q $x $b $x ${_c(b - ry)} '
-        'L $x ${_c(y + ry)} '
-        'Q $x $y ${_c(x + rx)} $y '
-        'Z',
-        rectTag,
-        filterAttributes,
-      );
-    }
+    return rx == 0 && ry == 0
+        ? _buildPath('M $x $y H $r V $b H $x V $y Z', rectTag, filterAttributes)
+        : _buildPath(
+            'M ${_c(x + rx)} $y '
+            'L ${_c(r - rx)} $y '
+            'Q $r $y $r ${_c(y + ry)} '
+            'L $r ${_c(y + h - ry)} '
+            'Q $r $b ${_c(r - rx)} $b '
+            'L ${_c(x + rx)} $b '
+            'Q $x $b $x ${_c(b - ry)} '
+            'L $x ${_c(y + ry)} '
+            'Q $x $y ${_c(x + rx)} $y '
+            'Z',
+            rectTag,
+            filterAttributes,
+          );
   }
 
   static XmlElement fromCircle(XmlElement circleTag) {
     final filterAttributes = [
       AttributeName.cx,
       AttributeName.cy,
-      AttributeName.r
+      AttributeName.r,
     ];
 
     final cx = _getAttribute(circleTag, AttributeName.cx);
@@ -154,7 +148,7 @@ class PathConverter {
       AttributeName.cx,
       AttributeName.cy,
       AttributeName.rx,
-      AttributeName.ry
+      AttributeName.ry,
     ];
 
     final cx = _getAttribute(ellipseTag, AttributeName.cx);

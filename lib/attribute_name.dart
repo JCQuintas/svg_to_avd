@@ -32,7 +32,7 @@ class AttributeName {
 
   static const String transform = 'transform';
 
-  // general
+  // General.
   static final String androidFillColor = android('fillColor');
   static final String androidFillAlpha = android('fillAlpha');
   static final String androidFillType = android('fillType');
@@ -48,7 +48,7 @@ class AttributeName {
   static final String androidViewportWidth = android('viewportWidth');
   static final String androidViewportHeight = android('viewportHeight');
 
-  // transforms
+  // Transforms.
   static final String androidTranslateX = android('translateX');
   static final String androidTranslateY = android('translateY');
   static final String androidScaleX = android('scaleX');
@@ -69,7 +69,7 @@ class AttributeName {
     strokeLineCap: androidStrokeLineCap,
     d: androidPathData,
     width: androidWidth,
-    height: androidHeight
+    height: androidHeight,
   };
 
   static String toAndroid(String attributeName) {
