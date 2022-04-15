@@ -14,7 +14,8 @@ jobs:
       - uses: dart-lang/setup-dart@v1
 
       - name: Run tests
-        run: flutter test --coverage --test-randomize-ordering-seed random
+        run: dart test --reporter=github --coverage=./coverage --test-randomize-ordering-seed=random
+      # - run: dart pub global activate coverage
 
       # - name: Codecov
       #   uses: codecov/codecov-action@v2.1.0

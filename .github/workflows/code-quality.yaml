@@ -22,4 +22,3 @@ jobs:
           fatal_performance: true
           fatal_style: true
           check_unused_files: true
-          check_unused_files_folders: true
