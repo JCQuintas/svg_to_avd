@@ -1,0 +1,23 @@
+name: Unit Test Coverage
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  unit-test-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Run tests
+        run: dart test --reporter=github --coverage=./coverage --test-randomize-ordering-seed=random
+      # - run: dart pub global activate coverage
+
+      # - name: Codecov
+      #   uses: codecov/codecov-action@v2.1.0
+      #   with:
+      #     flags: Unit

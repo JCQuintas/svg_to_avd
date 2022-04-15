@@ -1,17 +1,15 @@
-name-template: "v$RESOLVED_VERSION 🌈"
+name-template: "v$RESOLVED_VERSION"
 tag-template: "v$RESOLVED_VERSION"
 categories:
-  - title: "🚀 Features"
+  - title: "Added"
     labels:
       - "feature"
       - "enhancement"
-  - title: "🐛 Bug Fixes"
+  - title: "Fixed"
     labels:
       - "fix"
       - "bugfix"
       - "bug"
-  - title: "🧰 Maintenance"
-    label: "chore"
 version-resolver:
   major:
     labels:
@@ -33,8 +31,6 @@ autolabeler:
   - label: "chore"
     files:
       - "*.md"
-    branch:
-      - '/docs{0,1}\/.+/'
   - label: "bug"
     branch:
       - '/fix\/.+/'
@@ -44,6 +40,6 @@ autolabeler:
     branch:
       - '/feature\/.+/'
 template: |
-  ## Changes
+  ## Changed
 
   $CHANGES

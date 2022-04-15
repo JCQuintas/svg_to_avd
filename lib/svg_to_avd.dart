@@ -1,3 +1,5 @@
+library svg_to_avd;
+
 import 'package:svg_to_avd/attribute_converter.dart';
 import 'package:svg_to_avd/element_name.dart';
 import 'package:svg_to_avd/errors/invalid_svg_string_exception.dart';
@@ -55,7 +57,5 @@ XmlElement _svgToAvd(String svgString) {
     }
   }
 
-  final vectorRoot = RootElementConverter.fromElement(globalSvg);
-
-  return vectorRoot;
+  return RootElementConverter.fromElement(globalSvg);
 }

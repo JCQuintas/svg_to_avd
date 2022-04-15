@@ -1,8 +1,8 @@
 analyzer:
   exclude: [build/**, lib/**.freezed.dart, lib/**.g.dart]
 
-# Currently doesn't work with analyzer out of the box
-# https://github.com/dart-code-checker/dart-code-metrics/issues/313
+  # Currently doesn't work with analyzer out of the box
+  # https://github.com/dart-code-checker/dart-code-metrics/issues/313
   plugins:
     - dart_code_metrics
 
@@ -186,7 +186,6 @@ linter:
     - valid_regexps
     - void_checks
 
-
 dart_code_metrics:
   anti-patterns:
     - long-method
@@ -219,9 +218,9 @@ dart_code_metrics:
     - prefer-first
     - prefer-immediate-return
     - prefer-last
-    - prefer-match-file-name: 
-        exclude: 
+    - prefer-match-file-name:
+        exclude:
           - test/**
-    - prefer-single-widget-per-file: 
+    - prefer-single-widget-per-file:
         ignore-private-widgets: true
     - prefer-trailing-comma

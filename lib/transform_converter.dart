@@ -2,10 +2,12 @@ import 'package:svg_to_avd/attribute_name.dart';
 import 'package:svg_to_avd/element_name.dart';
 import 'package:xml/xml.dart';
 
-const String _defaultTranslate = '0';
-const String _defaultScale = '1';
-const String _defaultRotate = '0';
-const String _defaultPivot = '-1';
+const String _translate = '0';
+const String _scale = '1';
+const String _rotate = '0';
+const String _pivot = '-1';
+
+typedef AN = AttributeName;
 
 class TransformConverter {
   static List<XmlAttribute> fromString(String? transform) {
@@ -27,57 +29,22 @@ class TransformConverter {
         final x = _getElementAt(split, 0);
         final y = _getElementAt(split, 1);
 
-        _addIfValid(
-          transformAttributes,
-          x,
-          _defaultTranslate,
-          AttributeName.androidTranslateX,
-        );
-        _addIfValid(
-          transformAttributes,
-          y,
-          _defaultTranslate,
-          AttributeName.androidTranslateY,
-        );
+        _addIfValid(transformAttributes, x, _translate, AN.androidTranslateX);
+        _addIfValid(transformAttributes, y, _translate, AN.androidTranslateY);
       } else if (transformName == 'scale') {
         final x = _getElementAt(split, 0);
         final y = _getElementAt(split, 1);
 
-        _addIfValid(
-          transformAttributes,
-          x,
-          _defaultScale,
-          AttributeName.androidScaleX,
-        );
-        _addIfValid(
-          transformAttributes,
-          y,
-          _defaultScale,
-          AttributeName.androidScaleY,
-        );
+        _addIfValid(transformAttributes, x, _scale, AN.androidScaleX);
+        _addIfValid(transformAttributes, y, _scale, AN.androidScaleY);
       } else if (transformName == 'rotate') {
         final r = _getElementAt(split, 0);
         final x = _getElementAt(split, 1);
         final y = _getElementAt(split, 2);
 
-        _addIfValid(
-          transformAttributes,
-          r,
-          _defaultRotate,
-          AttributeName.androidRotation,
-        );
-        _addIfValid(
-          transformAttributes,
-          x,
-          _defaultPivot,
-          AttributeName.androidPivotX,
-        );
-        _addIfValid(
-          transformAttributes,
-          y,
-          _defaultPivot,
-          AttributeName.androidPivotY,
-        );
+        _addIfValid(transformAttributes, r, _rotate, AN.androidRotation);
+        _addIfValid(transformAttributes, x, _pivot, AN.androidPivotX);
+        _addIfValid(transformAttributes, y, _pivot, AN.androidPivotY);
       }
 
       match = transformRegExp.allMatches(transform, startIndex);
