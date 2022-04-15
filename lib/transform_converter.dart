@@ -7,27 +7,6 @@ const String _defaultScale = '1';
 const String _defaultRotate = '0';
 const String _defaultPivot = '-1';
 
-void _addIfValid(
-  List<XmlAttribute> list,
-  String? value,
-  String defaultValue,
-  String attributeName,
-) {
-  if (value != null && value != defaultValue) {
-    list.add(
-      XmlAttribute(XmlName(attributeName), value),
-    );
-  }
-}
-
-String? _getElementAt(List<String>? list, int index) {
-  if (list != null && list.length >= index + 1) {
-    return list.elementAt(index);
-  }
-
-  return null;
-}
-
 class TransformConverter {
   static List<XmlAttribute> fromString(String? transform) {
     if (transform == null) return [];
@@ -117,4 +96,25 @@ class TransformConverter {
       element.isSelfClosing,
     );
   }
+}
+
+void _addIfValid(
+  List<XmlAttribute> list,
+  String? value,
+  String defaultValue,
+  String attributeName,
+) {
+  if (value != null && value != defaultValue) {
+    list.add(
+      XmlAttribute(XmlName(attributeName), value),
+    );
+  }
+}
+
+String? _getElementAt(List<String>? list, int index) {
+  if (list != null && list.length >= index + 1) {
+    return list.elementAt(index);
+  }
+
+  return null;
 }

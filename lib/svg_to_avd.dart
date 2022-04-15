@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:svg_to_avd/attribute_converter.dart';
 import 'package:svg_to_avd/element_name.dart';
 import 'package:svg_to_avd/errors/invalid_svg_string_exception.dart';
@@ -7,8 +9,28 @@ import 'package:svg_to_avd/root_element_converter.dart';
 import 'package:svg_to_avd/transform_converter.dart';
 import 'package:xml/xml.dart';
 
-/// Converts the [svgString] into a Vector Drawable.
-String svgToAvd(String svgString) {
+/// The SvgToAvg class is an extension of [XmlDocument].
+/// It contains a single new method called [toPrettyXmlString] to simplify SVG
+/// writing simple SVG strings.
+class SvgToAvd extends XmlDocument {
+  SvgToAvd._(XmlElement xmlElement) : super([xmlElement]);
+
+  /// Parses the [svgString] into a valid Android Vector Drawable.
+  factory SvgToAvd.fromString(String svgString) =>
+      SvgToAvd._(_svgToAvd(svgString));
+
+  /// Returns a [String] based on the XmlDocument.
+  /// This is a simple wrapper around [toXmlString].
+  ///
+  /// ```dart
+  /// // same as
+  /// XmlDocument.toXmlString(pretty: true);
+  /// ```
+  String toPrettyXmlString() => toXmlString(pretty: true);
+}
+
+/// Runs the transformers in the correct order to build the XmlDocument.
+XmlElement _svgToAvd(String svgString) {
   final document = XmlDocument.parse(svgString);
 
   final globalSvg = document.getElement('svg');
@@ -37,6 +59,5 @@ String svgToAvd(String svgString) {
 
   final vectorRoot = RootElementConverter.fromElement(globalSvg);
 
-  // return
-  return vectorRoot.toXmlString(pretty: true);
+  return vectorRoot;
 }
