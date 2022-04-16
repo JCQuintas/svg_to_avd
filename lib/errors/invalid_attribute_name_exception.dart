@@ -1,6 +1,6 @@
-import 'package:svg_to_avd/errors/svg_to_vd_exception.dart';
+import 'package:svg_to_avd/errors/svg_to_avd_exception.dart';
 
-class InvalidAttributeNameException extends SvgToVdException {
+class InvalidAttributeNameException extends SvgToAvdException {
   InvalidAttributeNameException(String attributeName)
       : super(
           'Attribute name `$attributeName` does not have a '
