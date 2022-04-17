@@ -26,7 +26,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:svg_to_avd/errors/svg_to_avd_exception.dart';
 import 'package:svg_to_avd/svg_to_avd.dart';
 
 part 'parts/file_parsing_exception.dart';
@@ -53,17 +52,17 @@ final parser = ArgParser()
 
 Future<void> main(List<String> arguments) async {
   exitCode = 0;
-
-  final argResults = parser.parse(arguments);
-
   final usageHelp = _getUsageHelp(parser);
-
-  if (argResults.wasParsed(help)) {
-    stdout.write(usageHelp);
-    return;
-  }
-
   try {
+    final argResults = parser.parse(arguments);
+
+    if (argResults.wasParsed(help)) {
+      stdout
+        ..write(usageHelp)
+        ..writeln();
+      return;
+    }
+
     await inputToAvd(argResults);
   } catch (e) {
     exitCode = 2;
