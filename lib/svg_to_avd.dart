@@ -9,6 +9,10 @@ import 'package:svg_to_avd/root_element_converter.dart';
 import 'package:svg_to_avd/transform_converter.dart';
 import 'package:xml/xml.dart';
 
+export 'package:svg_to_avd/errors/invalid_attribute_name_exception.dart';
+export 'package:svg_to_avd/errors/invalid_svg_string_exception.dart';
+export 'package:svg_to_avd/errors/svg_to_avd_exception.dart';
+
 /// The SvgToAvg class is an extension of [XmlDocument].
 /// It contains a single new method called [toPrettyXmlString] to simplify SVG
 /// writing simple SVG strings.

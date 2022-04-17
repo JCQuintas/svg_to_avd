@@ -1,5 +1,5 @@
-class SvgToVdException implements Exception {
-  SvgToVdException(this.message);
+class SvgToAvdException implements Exception {
+  SvgToAvdException(this.message);
 
   final String message;
 

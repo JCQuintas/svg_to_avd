@@ -1,12 +1,11 @@
 import 'dart:io';
 
-import 'package:svg_to_avd/errors/invalid_svg_string_exception.dart';
 import 'package:svg_to_avd/svg_to_avd.dart';
 import 'package:test/test.dart';
 import 'package:xml/xml.dart';
 
 final inputSvgFile = File('./test/fixture/svg_file.svg');
-final resultSvgFile = File('./test/fixture/svg_file_result.svg');
+final resultXmlFile = File('./test/fixture/svg_file_result.xml');
 
 void main() {
   group('SvgToAvd.fromString', () {
@@ -19,7 +18,7 @@ void main() {
 
         expect(
           result.toPrettyXmlString(),
-          XmlDocument.parse(resultSvgFile.readAsStringSync())
+          XmlDocument.parse(resultXmlFile.readAsStringSync())
               .toXmlString(pretty: true),
         );
       },

@@ -1,6 +1,6 @@
-import 'package:svg_to_avd/errors/svg_to_vd_exception.dart';
+import 'package:svg_to_avd/errors/svg_to_avd_exception.dart';
 
-class InvalidSvgStringException extends SvgToVdException {
+class InvalidSvgStringException extends SvgToAvdException {
   InvalidSvgStringException()
       : super('Argument `svgString` is not a valid SVG formatted XML.');
 }
