@@ -15,9 +15,19 @@ jobs:
 
       - name: Run tests
         run: dart test --reporter=github --coverage=./coverage --test-randomize-ordering-seed=random
-      # - run: dart pub global activate coverage
 
-      # - name: Codecov
-      #   uses: codecov/codecov-action@v2.1.0
-      #   with:
-      #     flags: Unit
+      - name: Generate Coverage
+        run: dart pub global activate coverage
+      - run: -> dart pub global run coverage:format_coverage
+          --check-ignore
+          --packages=.packages
+          --report-on=lib
+          --lcov
+          -o ./coverage/lcov.info
+          -i ./coverage
+
+      - name: Codecov
+        uses: codecov/codecov-action@v3.0.0
+        with:
+          flags: unittests
+          directory: ./coverage
