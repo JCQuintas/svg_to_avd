@@ -1,5 +1,5 @@
 name: svg_to_avd
-description: Converts SVG to Vector Drawable.
+description: A library and CLI to convert SVG into Android Vector Drawable
 version: 0.0.1
 homepage: https://github.com/JCQuintas/svg_to_avd
 
