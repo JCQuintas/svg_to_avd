@@ -18,7 +18,8 @@ jobs:
 
       - name: Generate Coverage
         run: dart pub global activate coverage
-      - run: -> dart pub global run coverage:format_coverage
+      - run: >
+          dart pub global run coverage:format_coverage
           --check-ignore
           --packages=.packages
           --report-on=lib
