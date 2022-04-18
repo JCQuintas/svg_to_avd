@@ -1,3 +1,4 @@
+/// Converts any css dimension into its pixel value.
 double dimensionToPixel(String dimension) {
   final value = int.parse(dimension.replaceAll(RegExp('[^0-9.]'), ''));
   const meterToPixel = 3543.30709;

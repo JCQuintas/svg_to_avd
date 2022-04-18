@@ -6,40 +6,9 @@ import 'package:xml/xml.dart';
 
 const double _kappa = 0.5522847498307935;
 
-// Clamp.
-double _c(double number) => double.parse(number.toStringAsPrecision(12));
-
-// String to double.
-double _stod(String string) => _c(double.parse(string));
-
-double _getAttribute(XmlElement element, String attribute) =>
-    _stod(element.getAttribute(attribute) ?? '0');
-
-XmlElement _buildPath(
-  String path,
-  XmlElement element,
-  List<String> filterAttributes,
-) {
-  final newElement = XmlElement(
-    XmlName(ElementName.path),
-    [
-      ...element.attributes
-          .where(
-            (attribute) => !filterAttributes.contains(attribute.name.local),
-          )
-          .map((e) => e.copy()),
-      XmlAttribute(XmlName(AttributeName.d), path),
-    ],
-  );
-  final parent = element.parent;
-  if (parent != null) {
-    newElement.attachParent(parent);
-  }
-
-  return newElement;
-}
-
+/// Responsible for converting all the different svg shapes into a `path`.
 class PathConverter {
+  /// Converts any of svg's basic shapes into a `path` element.
   static XmlElement? fromElement(XmlElement element) {
     switch (element.name.local) {
       case ElementName.line:
@@ -58,6 +27,7 @@ class PathConverter {
     return null;
   }
 
+  /// Converts a `line` element into a `path` element.
   static XmlElement fromLine(XmlElement lineTag) {
     final filterAttributes = [
       AttributeName.x1,
@@ -76,6 +46,7 @@ class PathConverter {
     );
   }
 
+  /// Converts a `rect` element into a `path` element.
   static XmlElement fromRect(XmlElement rectTag) {
     final filterAttributes = [
       AttributeName.x,
@@ -119,6 +90,7 @@ class PathConverter {
           );
   }
 
+  /// Converts a `circle` element into a `path` element.
   static XmlElement fromCircle(XmlElement circleTag) {
     final filterAttributes = [
       AttributeName.cx,
@@ -143,6 +115,7 @@ class PathConverter {
     );
   }
 
+  /// Converts a `ellipse` element into a `path` element.
   static XmlElement fromEllipse(XmlElement ellipseTag) {
     final filterAttributes = [
       AttributeName.cx,
@@ -170,6 +143,8 @@ class PathConverter {
     );
   }
 
+  /// Converts a `polygon` or `polyline` element into a `path` element. If converting a
+  /// `polyline`, make sure to pass the [isPolyline] attribute as `true`.
   static XmlElement fromPoly(
     XmlElement polylineTag, {
     bool isPolyline = false,
@@ -208,4 +183,37 @@ class PathConverter {
       return XmlElement(XmlName(ElementName.g));
     }
   }
+}
+
+// Clamp.
+double _c(double number) => double.parse(number.toStringAsPrecision(12));
+
+// String to double.
+double _stod(String string) => _c(double.parse(string));
+
+double _getAttribute(XmlElement element, String attribute) =>
+    _stod(element.getAttribute(attribute) ?? '0');
+
+XmlElement _buildPath(
+  String path,
+  XmlElement element,
+  List<String> filterAttributes,
+) {
+  final newElement = XmlElement(
+    XmlName(ElementName.path),
+    [
+      ...element.attributes
+          .where(
+            (attribute) => !filterAttributes.contains(attribute.name.local),
+          )
+          .map((e) => e.copy()),
+      XmlAttribute(XmlName(AttributeName.d), path),
+    ],
+  );
+  final parent = element.parent;
+  if (parent != null) {
+    newElement.attachParent(parent);
+  }
+
+  return newElement;
 }

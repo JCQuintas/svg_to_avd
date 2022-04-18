@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, self explanatory.
+
+/// Class to hold all used element names statically.
 class ElementName {
   static const String line = 'line';
   static const String rect = 'rect';

@@ -2,7 +2,11 @@ import 'package:svg_to_avd/attribute_name.dart';
 import 'package:svg_to_avd/element_name.dart';
 import 'package:xml/xml.dart';
 
+/// Responsible for converting all the different svg attributes
+/// into valid avd attributes.
 class AttributeConverter {
+  /// Converts all values in the list into a list of attributes that can be
+  /// added to a `path` element for avd.
   static List<XmlAttribute> fromAttributes(List<XmlAttribute> attributes) {
     final element = XmlElement(
       XmlName('svg-to-avd:temporary-container'),
@@ -17,6 +21,14 @@ class AttributeConverter {
     ];
   }
 
+  /// Converts all values in the [element] into a clone of the [element] with
+  /// the necessary converted attributes.
+  ///
+  /// To find all the necessary attributes we traverse all of [element]'s
+  /// parents to find any `g` element that contains styling information.
+  ///
+  /// If any of the attributes is a transform, this wraps the cloned [element]
+  /// into a `g` element.
   static XmlElement fromElement(XmlElement element) {
     final temporaryElement = XmlElement(
       XmlName('svg-to-avd:temporary-container'),

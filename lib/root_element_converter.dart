@@ -2,7 +2,10 @@ import 'package:svg_to_avd/attribute_name.dart';
 import 'package:svg_to_avd/dimension_to_pixel.dart';
 import 'package:xml/xml.dart';
 
+/// Responsible for converting the `svg` element.
 class RootElementConverter {
+  /// Converts an `svg` element into a `vector` element. Translating all the
+  /// necessary attributes.
   static XmlElement fromElement(XmlElement element) {
     final newElement = XmlElement(
       XmlName('vector'),

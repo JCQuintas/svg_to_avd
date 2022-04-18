@@ -26,7 +26,7 @@ final svg = File('file.svg').readAsStringSync();
 // Will generate an interactive XmlDocument.
 final avd = SvgToAvd.fromString(svg);
 
-// Creates a new file with the converted value
+// Creates a new file with the converted value.
 await File('file.xml').writeAsString(avd.toPrettyXmlString());
 ```
 
