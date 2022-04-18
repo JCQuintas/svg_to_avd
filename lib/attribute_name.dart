@@ -1,7 +1,10 @@
+// ignore_for_file: public_member_api_docs, self explanatory.
+
 import 'package:svg_to_avd/errors/invalid_attribute_name_exception.dart';
 
-String android(String key) => 'android:$key';
+String _android(String key) => 'android:$key';
 
+/// Class to hold all used attribute names statically.
 class AttributeName {
   static const String opacity = 'opacity';
   static const String fillOpacity = 'fill-opacity';
@@ -33,29 +36,29 @@ class AttributeName {
   static const String transform = 'transform';
 
   // General.
-  static final String androidFillColor = android('fillColor');
-  static final String androidFillAlpha = android('fillAlpha');
-  static final String androidFillType = android('fillType');
-  static final String androidStrokeColor = android('strokeColor');
-  static final String androidStrokeAlpha = android('strokeAlpha');
-  static final String androidStrokeWidth = android('strokeWidth');
-  static final String androidStrokeLineJoin = android('strokeLineJoin');
-  static final String androidStrokeMiterLimit = android('strokeMiterLimit');
-  static final String androidStrokeLineCap = android('strokeLineCap');
-  static final String androidPathData = android('pathData');
-  static final String androidWidth = android('width');
-  static final String androidHeight = android('height');
-  static final String androidViewportWidth = android('viewportWidth');
-  static final String androidViewportHeight = android('viewportHeight');
+  static final String androidFillColor = _android('fillColor');
+  static final String androidFillAlpha = _android('fillAlpha');
+  static final String androidFillType = _android('fillType');
+  static final String androidStrokeColor = _android('strokeColor');
+  static final String androidStrokeAlpha = _android('strokeAlpha');
+  static final String androidStrokeWidth = _android('strokeWidth');
+  static final String androidStrokeLineJoin = _android('strokeLineJoin');
+  static final String androidStrokeMiterLimit = _android('strokeMiterLimit');
+  static final String androidStrokeLineCap = _android('strokeLineCap');
+  static final String androidPathData = _android('pathData');
+  static final String androidWidth = _android('width');
+  static final String androidHeight = _android('height');
+  static final String androidViewportWidth = _android('viewportWidth');
+  static final String androidViewportHeight = _android('viewportHeight');
 
   // Transforms.
-  static final String androidTranslateX = android('translateX');
-  static final String androidTranslateY = android('translateY');
-  static final String androidScaleX = android('scaleX');
-  static final String androidScaleY = android('scaleY');
-  static final String androidRotation = android('rotation');
-  static final String androidPivotX = android('pivotX');
-  static final String androidPivotY = android('pivotY');
+  static final String androidTranslateX = _android('translateX');
+  static final String androidTranslateY = _android('translateY');
+  static final String androidScaleX = _android('scaleX');
+  static final String androidScaleY = _android('scaleY');
+  static final String androidRotation = _android('rotation');
+  static final String androidPivotX = _android('pivotX');
+  static final String androidPivotY = _android('pivotY');
 
   static final _convertMap = {
     fill: androidFillColor,
@@ -72,6 +75,8 @@ class AttributeName {
     height: androidHeight,
   };
 
+  /// Converts a given svg attribute name into its android counterpart.
+  /// Throws if there is no counterpart.
   static String toAndroid(String attributeName) {
     final value = _convertMap[attributeName];
     if (value == null) {

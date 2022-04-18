@@ -7,13 +7,19 @@ const String _scale = '1';
 const String _rotate = '0';
 const String _pivot = '-1';
 
-typedef AN = AttributeName;
-
+/// Responsible for converting the `transform` attributes or `g` elements.
 class TransformConverter {
+  /// Converts a `transform` value into a list of attributes that can be added
+  /// to a `group` element.
+  ///
+  /// eg:
+  /// ```dart
+  /// TransformConverter.fromString('rotate(-10) translate(10 10)');
+  /// ```
   static List<XmlAttribute> fromString(String? transform) {
     if (transform == null) return [];
 
-    final transformAttributes = <XmlAttribute>[];
+    final attributes = <XmlAttribute>[];
 
     final transformRegExp = RegExp(r'((\w|\s)+)\(([^)]+)', multiLine: true);
     var startIndex = 0;
@@ -29,30 +35,32 @@ class TransformConverter {
         final x = _getElementAt(split, 0);
         final y = _getElementAt(split, 1);
 
-        _addIfValid(transformAttributes, x, _translate, AN.androidTranslateX);
-        _addIfValid(transformAttributes, y, _translate, AN.androidTranslateY);
+        _addIfValid(attributes, x, _translate, AttributeName.androidTranslateX);
+        _addIfValid(attributes, y, _translate, AttributeName.androidTranslateY);
       } else if (transformName == 'scale') {
         final x = _getElementAt(split, 0);
         final y = _getElementAt(split, 1);
 
-        _addIfValid(transformAttributes, x, _scale, AN.androidScaleX);
-        _addIfValid(transformAttributes, y, _scale, AN.androidScaleY);
+        _addIfValid(attributes, x, _scale, AttributeName.androidScaleX);
+        _addIfValid(attributes, y, _scale, AttributeName.androidScaleY);
       } else if (transformName == 'rotate') {
         final r = _getElementAt(split, 0);
         final x = _getElementAt(split, 1);
         final y = _getElementAt(split, 2);
 
-        _addIfValid(transformAttributes, r, _rotate, AN.androidRotation);
-        _addIfValid(transformAttributes, x, _pivot, AN.androidPivotX);
-        _addIfValid(transformAttributes, y, _pivot, AN.androidPivotY);
+        _addIfValid(attributes, r, _rotate, AttributeName.androidRotation);
+        _addIfValid(attributes, x, _pivot, AttributeName.androidPivotX);
+        _addIfValid(attributes, y, _pivot, AttributeName.androidPivotY);
       }
 
       match = transformRegExp.allMatches(transform, startIndex);
     }
 
-    return transformAttributes;
+    return attributes;
   }
 
+  /// Converts a `g` element into a `group` element. It returns null if the
+  /// input is not a `g` element.
   static XmlElement? fromElement(XmlElement element) {
     if (element.name.local != ElementName.g) return null;
 
