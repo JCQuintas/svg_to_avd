@@ -12,7 +12,7 @@ class TransformConverter {
   /// Converts a `transform` value into a list of attributes that can be added
   /// to a `group` element.
   ///
-  /// eg:
+  /// Eg:
   /// ```dart
   /// TransformConverter.fromString('rotate(-10) translate(10 10)');
   /// ```
