@@ -1,3 +1,7 @@
+## 0.0.3
+
+- Update packages
+
 ## 0.0.2
 
 - Add public methods documentation
