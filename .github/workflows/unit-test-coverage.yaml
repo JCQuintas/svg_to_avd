@@ -21,7 +21,6 @@ jobs:
       - run: >
           dart pub global run coverage:format_coverage
           --check-ignore
-          --packages=.packages
           --report-on=lib
           --lcov
           -o ./coverage/lcov.info
