@@ -35,31 +35,35 @@ class SvgToAvd extends XmlDocument {
 
 /// Runs the transformers in the correct order to build the XmlDocument.
 XmlElement _svgToAvd(String svgString) {
-  final document = XmlDocument.parse(svgString);
+  try {
+    final document = XmlDocument.parse(svgString);
 
-  final globalSvg = document.getElement('svg');
+    final globalSvg = document.getElement('svg');
 
-  if (globalSvg == null) throw InvalidSvgStringException();
+    if (globalSvg == null) throw InvalidSvgStringException();
 
-  replaceUseTags(globalSvg);
+    replaceUseTags(globalSvg);
 
-  for (final element in globalSvg.descendantElements) {
-    final pathElement = PathConverter.fromElement(element);
+    for (final element in globalSvg.descendantElements) {
+      final pathElement = PathConverter.fromElement(element);
 
-    final convertedAttributes =
-        AttributeConverter.fromElement(pathElement ?? element);
+      final convertedAttributes =
+          AttributeConverter.fromElement(pathElement ?? element);
 
-    if (element.name.local != ElementName.g) {
-      element.replace(convertedAttributes);
+      if (element.name.local != ElementName.g) {
+        element.replace(convertedAttributes);
+      }
     }
-  }
 
-  for (final element in globalSvg.descendantElements) {
-    final transformElement = TransformConverter.fromElement(element);
-    if (transformElement != null) {
-      element.replace(transformElement);
+    for (final element in globalSvg.descendantElements) {
+      final transformElement = TransformConverter.fromElement(element);
+      if (transformElement != null) {
+        element.replace(transformElement);
+      }
     }
-  }
 
-  return RootElementConverter.fromElement(globalSvg);
+    return RootElementConverter.fromElement(globalSvg);
+  } on XmlParserException {
+    throw InvalidSvgStringException();
+  }
 }
